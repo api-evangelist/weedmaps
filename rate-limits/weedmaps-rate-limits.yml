@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Weedmaps
+providerId: weedmaps
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Cannabis
+- Marketplace
+- Partner API
+- Rate Limiting
+- Quotas
+description: >-
+  Weedmaps publishes numeric rate limits for its partner API. A global limit of
+  2,500 requests per minute per integrator applies across all endpoints,
+  enforced as 420 requests per 10 seconds. The OAuth2 access-token endpoint
+  (/auth/token) is separately restricted to 1 request per minute, so clients are
+  expected to cache and reuse the token rather than fetch one per call. Exceeding
+  a limit returns HTTP 429 Too Many Requests; Weedmaps recommends exponential
+  backoff and consolidating requests.
+notes: >-
+  Weedmaps does not document specific rate-limit response headers (e.g.
+  X-RateLimit-Remaining) as of the review date. The 420-per-10-seconds burst
+  window is the effective enforcement mechanism behind the 2,500/min figure.
+  Verify current limits in the developer rate-limits guide during reconciliation.
+sources:
+- https://developer.weedmaps.com/docs/rate-limits
+- https://developer.weedmaps.com/docs/oauth
+- https://developer.weedmaps.com/docs/overview
+responseCodes:
+  throttled: 429
+limits:
+- name: Global Integrator Requests
+  scope: integrator
+  metric: requests
+  limit: 2500 per minute
+  notes: Applies across all partner endpoints per integrator.
+- name: Burst Window
+  scope: integrator
+  metric: requests
+  limit: 420 per 10 seconds
+  notes: The enforcement window behind the 2,500/min global limit.
+- name: Access Token Endpoint
+  scope: integrator
+  metric: requests
+  limit: 1 per minute
+  notes: The /auth/token OAuth2 client-credentials endpoint; cache and reuse the token.
+policies:
+- name: Backoff Strategy
+  description: On 429 responses, implement exponential backoff and retry rather than hammering the endpoint.
+- name: Request Consolidation
+  description: Consolidate requests where feasible and batch menu-item updates to stay within the burst window.
+- name: Token Reuse
+  description: Fetch one access token and reuse it across requests until expiry; do not request a token per call given the 1/min token limit.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

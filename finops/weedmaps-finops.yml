@@ -1,0 +1,95 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Weedmaps
+providerId: weedmaps
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Cannabis
+- Marketplace
+- Partner API
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Weedmaps spend. Weedmaps' partner APIs (Menu, Brand Catalog,
+  Taxonomy, Orders) carry no separate per-call fee - the cost driver is the
+  Weedmaps for Business listing subscription that the APIs keep in sync. That
+  subscription is a monthly SaaS/advertising charge paid by dispensaries,
+  delivery services, and brands, priced by market and negotiated via Weedmaps
+  sales (reported retailer base ~$495/mo, delivery ~$395/mo, with large metros
+  and national brand programs substantially higher). For an integration partner,
+  the direct cost is the engineering and infrastructure to run the sync against
+  the documented rate limits, not a metered API invoice.
+notes: >-
+  Weedmaps does not publish listing prices or an API price sheet publicly;
+  figures are reported market observations. Per-unit API rates do not apply
+  because the partner API is not separately metered as of the review date.
+  Reconcile listing rates and any partner-program terms directly with Weedmaps.
+sources:
+- https://weedmaps.com/business
+- https://weedmaps.com/business/retailers/
+- https://developer.weedmaps.com/docs/rate-limits
+- https://developer.weedmaps.com/docs/onboarding-process
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Weedmaps
+serviceCategory: Marketplace and Listings
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Weedmaps for Business
+  ServiceCategory: Marketplace and Listings
+  ProviderName: Weedmaps
+  PublisherName: Weedmaps
+  InvoiceIssuerName: Weedmaps
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: listing_subscription
+  description: Monthly Weedmaps for Business listing fee per storefront (retailer, delivery, or brand), market-dependent.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - listing
+  - market
+- name: api_requests
+  description: Partner API requests against the 2,500/min integrator limit; not separately billed but constrains sync throughput.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - integrator
+  - listing
+- name: integration_compute
+  description: Partner-side compute to run the POS-to-Weedmaps sync (no Weedmaps invoice).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - integrator
+principles:
+- name: Visibility
+  description: Track listing subscriptions per storefront/market and monitor API request volume against the integrator rate limit.
+- name: Allocation
+  description: Map each listing subscription and its sync traffic to the owning retailer/team or client account.
+- name: Optimization
+  description: Batch menu-item updates and reuse access tokens to stay within rate limits; review listing subscriptions against actual marketplace return per market.
+- name: Accountability
+  description: Assign an owner per listing and per integration; review monthly listing spend and any renegotiated market rates.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

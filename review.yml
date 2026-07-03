@@ -1,0 +1,127 @@
+aid: weedmaps
+name: Weedmaps
+review:
+  question: Does Weedmaps expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Weedmaps' partner API surface (the Menu
+    API, Brand Catalog, Taxonomy, and Orders API) is request/response REST over
+    HTTPS, authenticated with an OAuth2 client-credentials access token. There
+    is no documented server-push transport (WebSocket or SSE) on Weedmaps' own
+    partner API to model. Order events reach a partner POS through the Orders
+    API's request/response endpoints (and the partner polling / updating status)
+    rather than a persistent bidirectional socket, so there is no realtime
+    channel to describe with AsyncAPI.
+findings:
+  summary: |
+    Weedmaps does not publish a documented public WebSocket API. Weedmaps is a
+    cannabis discovery and ordering marketplace. Its developer program exposes a
+    partner integration API suite documented at developer.weedmaps.com: a Menu
+    API and Brand Catalog + Taxonomy under the base
+    https://api-g.weedmaps.com/wm/2025-07/partners, and an Orders API under
+    https://api-g.weedmaps.com/oos/2026-01. All are pure request/response REST
+    over HTTPS, authenticated with an OAuth2 ClientCredentials access token
+    obtained from the /auth/token endpoint. No realtime, bidirectional, or
+    streaming WebSocket (ws:// or wss://) endpoint is documented anywhere in the
+    Weedmaps partner API reference as of the review date.
+  accessModel: |
+    The developer documentation is fully public, but production API access is
+    partner-gated. Integrators apply by emailing the Weedmaps integrations team;
+    on approval they receive OAuth2 client credentials and a test listing, and a
+    Listing Owner must select the partner as their POS provider to grant
+    production access. The onboarding documentation states that new integrations
+    are not currently being onboarded and that qualified applicants are contacted
+    when capacity allows. Because a live partner account could not be exercised,
+    the endpoints in apis.yml are documented but modeled from the public
+    reference (endpointsModeled: true) - the brand and orders paths are confirmed
+    from the reference pages, while the exact menu-item CRUD/upsert paths are
+    inferred from the documented endpoint categories.
+  endpointsModeled: true
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api-g.weedmaps.com/wm/2025-07/partners
+      documented: true
+      note: Menu API, Brand Catalog, and Taxonomy. Date-versioned path (YYYY-MM); two releases per year (January and July).
+    - protocol: REST
+      scheme: https
+      baseURL: https://api-g.weedmaps.com/oos/2026-01
+      documented: true
+      note: Orders API. Separate date-versioned base path from the Menu/Brand/Taxonomy surface.
+    - protocol: OAuth2
+      scheme: https
+      documented: true
+      note: ClientCredentials flow. Access token retrieved from /auth/token, then sent as a Bearer token on all partner requests.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Weedmaps partner API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/menus
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/brands
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/brands/{id}
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/brand-products
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/brand-products/{id}
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/products/{id}/reviews
+    - PUT    https://api-g.weedmaps.com/oos/2026-01/merchants/{listing_id}/orders/{order_id}
+    - GET    https://api-g.weedmaps.com/oos/2026-01/discounts
+    - GET    https://api-g.weedmaps.com/oos/2026-01/order_windows
+    - GET    https://api-g.weedmaps.com/oos/2026-01/user_documents
+  endpointsModeledRest:
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/menus/{id}
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/menus/{menu_id}/menu-items
+    - POST   https://api-g.weedmaps.com/wm/2025-07/partners/menu-items
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/menu-items/{id}
+    - PATCH  https://api-g.weedmaps.com/wm/2025-07/partners/menu-items/{id}
+    - DELETE https://api-g.weedmaps.com/wm/2025-07/partners/menu-items/{id}
+    - PUT    https://api-g.weedmaps.com/wm/2025-07/partners/menu-items/external/{external_id}
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/cannabinoids
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/categories
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/strains
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/terpenes
+    - GET    https://api-g.weedmaps.com/wm/2025-07/partners/discovery-tags
+sources:
+  - url: https://developer.weedmaps.com/docs/overview
+    type: Documentation
+    note: Partner API suite overview - Menu API and Orders API, designed to work together or independently.
+  - url: https://developer.weedmaps.com/docs/oauth
+    type: Documentation
+    note: OAuth2 ClientCredentials flow; access must be granted by a Listing Owner. No WebSocket mentioned.
+  - url: https://developer.weedmaps.com/docs/onboarding-process
+    type: Documentation
+    note: Partner-gated onboarding; new integrations not currently being onboarded; apply by email for a test listing and credentials.
+  - url: https://developer.weedmaps.com/docs/versioning
+    type: Documentation
+    note: Date-based versioning (YYYY-MM), two releases per year (January and July), ~2-year support windows.
+  - url: https://developer.weedmaps.com/docs/rate-limits
+    type: Documentation
+    note: 2,500 requests/min per integrator (420 per 10s across all endpoints); token endpoint 1 request/min; 429 on overage.
+  - url: https://developer.weedmaps.com/reference/get_menus
+    type: APIReference
+    note: GET /wm/2025-07/partners/menus - confirms base host api-g.weedmaps.com and partners path.
+  - url: https://developer.weedmaps.com/reference/get_brands
+    type: APIReference
+    note: Brands, brand-products, and product reviews endpoints under the partners base path.
+  - url: https://developer.weedmaps.com/reference/update_order_status
+    type: APIReference
+    note: Orders API under base https://api-g.weedmaps.com/oos/2026-01 (order status, discounts, order_windows, user_documents).
+  - url: https://developer.weedmaps.com/docs/wm-menu-api-getting-started
+    type: Documentation
+    note: Menu and menu-item CRUD, upsert-by-external-ID, and taxonomy/enrichment linking endpoint categories.
+  - url: https://weedmaps.com/business
+    type: Website
+    note: Weedmaps for Business - the SaaS listing subscription that these partner APIs support.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Weedmaps' partner API is
+    request/response REST (Menu, Brand Catalog, Taxonomy, and Orders) secured
+    with OAuth2 client credentials. No AsyncAPI document was created because
+    there is no server-push transport on Weedmaps' own API to model. Production
+    access is partner-gated and currently closed to new integrations, so the
+    modeled menu-item endpoints are marked endpointsModeled rather than
+    exercised against a live account.

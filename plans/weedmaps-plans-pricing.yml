@@ -1,0 +1,136 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Weedmaps
+providerId: weedmaps
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Cannabis
+- Dispensary
+- Marketplace
+- Listing
+- Plans
+description: >-
+  Weedmaps does not sell its partner APIs as a standalone metered product. The
+  Menu, Brand Catalog, Taxonomy, and Orders APIs exist to keep a paid Weedmaps
+  for Business listing in sync with a retailer's point-of-sale, and access is
+  granted to approved integration partners at no separate API fee. The revenue
+  model is the Weedmaps for Business listing subscription paid by dispensaries,
+  delivery services, and brands - a monthly SaaS/advertising fee whose price
+  varies widely by market. Reported base rates have included roughly $495/month
+  for retailer listings and $395/month for delivery listings, but effective
+  pricing is market-dependent and negotiated (small markets ~$1,000-$3,000/mo,
+  large metros substantially higher). Integrators apply for API credentials by
+  email; production access additionally requires a Listing Owner to select the
+  partner as their POS provider.
+notes: >-
+  Numbers below are reported/observed market figures, not an official published
+  API price sheet - Weedmaps does not post listing prices publicly and sells via
+  sales contact. Verify current listing rates and any partner-program terms with
+  Weedmaps during reconciliation. The partner API itself carries no separate
+  per-call charge documented as of the review date.
+sources:
+- https://weedmaps.com/business
+- https://weedmaps.com/business/retailers/
+- https://weedmaps.com/add-a-business
+- https://developer.weedmaps.com/docs/onboarding-process
+plans:
+- id: weedmaps-partner-api-access
+  name: Partner API Access
+  type: partner
+  description: >-
+    Access to the Weedmaps partner API suite (Menu, Brand Catalog, Taxonomy,
+    Orders) for approved POS / integration partners. No separate API fee is
+    documented; access is gated by application and requires a Listing Owner to
+    grant production connection. New integrations are noted as not currently
+    being onboarded.
+  entries:
+  - label: Partner API Access
+    name: partner_api_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: no separate API fee (approval + Listing Owner grant required)
+    userMultiplied: false
+  elements:
+  - name: Menu API
+  - name: Brand Catalog API
+  - name: Taxonomy API
+  - name: Orders API
+  - name: OAuth2 Client Credentials
+  - name: Test Listing (sandbox)
+- id: weedmaps-business-retailer
+  name: Weedmaps for Business - Retailer Listing
+  type: paid
+  description: >-
+    Paid monthly listing for a dispensary / retailer on the Weedmaps
+    marketplace - product menu, storefront page, reviews, and ordering. This is
+    the subscription the partner APIs keep in sync. Effective price is
+    market-dependent and negotiated via Weedmaps sales.
+  entries:
+  - label: Retailer Listing
+    name: retailer_listing
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: market-dependent
+    unit: 1
+    price: from ~$495/month (reported base; varies widely by market)
+    userMultiplied: false
+  elements:
+  - name: Storefront Listing
+  - name: Product Menu
+  - name: Online Ordering
+  - name: Reviews
+- id: weedmaps-business-delivery
+  name: Weedmaps for Business - Delivery Listing
+  type: paid
+  description: >-
+    Paid monthly listing for a delivery service on the Weedmaps marketplace.
+    Effective price is market-dependent and negotiated via Weedmaps sales.
+  entries:
+  - label: Delivery Listing
+    name: delivery_listing
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: market-dependent
+    unit: 1
+    price: from ~$395/month (reported base; varies widely by market)
+    userMultiplied: false
+  elements:
+  - name: Delivery Storefront
+  - name: Product Menu
+  - name: Online Ordering
+- id: weedmaps-business-brand
+  name: Weedmaps for Business - Brand / Enterprise
+  type: enterprise
+  description: >-
+    Brand pages, national vendor placement, and enterprise advertising
+    packages. Priced by negotiation and market; national brand programs are
+    reported in the high monthly ranges.
+  entries:
+  - label: Brand / Enterprise Agreement
+    name: brand_enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: market-dependent
+    unit: 1
+    price: contact sales (market-dependent; national programs substantially higher)
+    userMultiplied: false
+  elements:
+  - name: Brand Pages
+  - name: National Placement
+  - name: Advertising Packages
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
