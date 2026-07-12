@@ -110,6 +110,8 @@ apis:
     documents), removing manual re-entry between Weedmaps and the retailer's
     system.
 common:
+- type: DomainSecurity
+  url: security/weedmaps-domain-security.yml
 - type: Website
   url: https://weedmaps.com
 - type: Business
@@ -128,6 +130,8 @@ common:
   url: rate-limits/weedmaps-rate-limits.yml
 - type: FinOps
   url: finops/weedmaps-finops.yml
+- url: https://news.weedmaps.com/feed/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
