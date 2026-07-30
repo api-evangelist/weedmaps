@@ -15,7 +15,19 @@ description: Weedmaps is a cannabis discovery and ordering marketplace connectin
   listing, and a Listing Owner must grant access. New integrations are noted as
   not currently being onboarded, so the endpoints below are documented but
   modeled from the public reference rather than exercised against a live account.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Paid
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/weedmaps.png
 tags:
 - Cannabis
 - Dispensary
