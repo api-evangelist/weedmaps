@@ -33,6 +33,15 @@ tags:
 - Dispensary
 - Marketplace
 - Menu Sync
+- Point-of-Sale
+- Order
+- Brands
+- Partner API
+tags_raw:
+- Cannabis
+- Dispensary
+- Marketplace
+- Menu Sync
 - Point of Sale
 - Orders
 - Brands
@@ -44,6 +53,11 @@ apis:
 - aid: weedmaps:weedmaps-menu-api
   name: Weedmaps Menu API
   tags:
+  - Menu Sync
+  - Menu Items
+  - Point-of-Sale
+  - Inventory
+  tags_raw:
   - Menu Sync
   - Menu Items
   - Point of Sale
@@ -65,6 +79,11 @@ apis:
 - aid: weedmaps:weedmaps-brand-catalog-api
   name: Weedmaps Brand Catalog API
   tags:
+  - Brands
+  - Product
+  - Reviews
+  - Enrichment
+  tags_raw:
   - Brands
   - Products
   - Reviews
@@ -104,6 +123,11 @@ apis:
 - aid: weedmaps:weedmaps-orders-api
   name: Weedmaps Orders API
   tags:
+  - Order
+  - Discounts
+  - Fulfillment
+  - Documents
+  tags_raw:
   - Orders
   - Discounts
   - Fulfillment
