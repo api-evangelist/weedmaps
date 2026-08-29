@@ -15,6 +15,17 @@ description: Weedmaps is a cannabis discovery and ordering marketplace connectin
   listing, and a Listing Owner must grant access. New integrations are noted as
   not currently being onboarded, so the endpoints below are documented but
   modeled from the public reference rather than exercised against a live account.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: unknown
