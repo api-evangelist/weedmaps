@@ -117,6 +117,12 @@ apis:
   - Taxonomy
   - Categories
   - Cannabinoids
+  - Strain
+  - Terpenes
+  tags_raw:
+  - Taxonomy
+  - Categories
+  - Cannabinoids
   - Strains
   - Terpenes
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
