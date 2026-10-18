@@ -1,0 +1,42 @@
+edges:
+- partner_name: Metrc (validated integrators)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.metrc.com/validated-integrators/
+  category: Cannabis track-and-trace
+  contract_reference:
+    register: Metrc Validated Integrators (metrc.com/validated-integrators, admin-ajax fetch_providers)
+    spec_file: null
+    standard: Metrc validated integrator (state cannabis track-and-trace)
+    role: metrc-validated-integrator
+    registered_name: Weedmaps – WM Retail
+    register_id: Weedmaps – WM Retail
+    website: https://weedmaps.com/business/retail/
+    matched_domain: weedmaps.com
+    matched_by: domain
+    signal_note: certified_products = one entry per STATE with Full or Partial Validation (level kept); Get Access
+      = API access only, participation; Metrc drops lapsed integrators, lapsed never set
+    detected_by: sweep-regulated-retail.py
+    detected: '2026-10-18'
+    certified_products:
+    - product: 'Metrc validated integration: California'
+      state: California
+      level: Full Validation
+    - product: 'Metrc validated integration: Michigan'
+      state: Michigan
+      level: Full Validation
+    - product: 'Metrc validated integration: Oklahoma'
+      state: Oklahoma
+      level: Full Validation
+  detected_by: sweep-regulated-retail.py
+  first_seen: '2026-10-18'
+generated: '2026-10-18'
+method: searched
+source:
+- https://www.metrc.com/validated-integrators/
+checked:
+- https://www.metrc.com/validated-integrators/
