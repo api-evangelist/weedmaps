@@ -93,7 +93,7 @@ apis:
   - Brands
   - Product
   - Reviews
-  - Enrichment
+  - Data Enrichment
   tags_raw:
   - Brands
   - Products
