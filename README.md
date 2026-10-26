@@ -1,0 +1,204 @@
+# Weedmaps (weedmaps)
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+Weedmaps is a cannabis discovery and ordering marketplace connecting consumers with dispensaries, delivery services, and brands. For its business customers it publishes a partner integration API suite documented at [developer.weedmaps.com](https://developer.weedmaps.com/docs): a **Menu API** for keeping a retailer's product menu, pricing, and availability in sync with their point-of-sale; a **Brand Catalog API** for mapping and enriching menu items against the Weedmaps brand and product catalog; a **Taxonomy API** for categories, cannabinoids, strains, terpenes, and discovery tags; and an **Orders API** for receiving and updating online orders directly in a partner POS.
+
+**Access model (important):** The developer documentation is fully public, but production access is **partner-gated**. Integrators apply by email; on approval they receive OAuth2 client-credentials and a test listing, and a Listing Owner must select the partner as their POS provider before production access is granted. The onboarding documentation notes that **new integrations are not currently being onboarded**. Because a live partner account could not be exercised, the endpoints below are documented but **modeled** from the public reference — the brand and orders paths are confirmed from the reference pages, while the exact menu-item CRUD/upsert paths are inferred from the documented endpoint categories.
+
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/weedmaps/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/weedmaps/refs/heads/main/apis.yml)
+
+## Authentication
+
+OAuth2 **ClientCredentials** flow. Retrieve an access token from the `/auth/token` endpoint (limited to 1 request/minute) and send it as a Bearer token on all partner requests. Access must be granted by a Listing Owner.
+
+## Base URLs
+
+- Menu / Brand Catalog / Taxonomy: `https://api-g.weedmaps.com/wm/2025-07/partners`
+- Orders: `https://api-g.weedmaps.com/oos/2026-01`
+
+Weedmaps uses date-based versioning (`YYYY-MM`) with two releases per year (January and July) and roughly two-year support windows per version.
+
+## Tags
+
+- Cannabis
+- Dispensary
+- Marketplace
+- Menu Sync
+- Point of Sale
+- Orders
+- Brands
+- Partner API
+
+## Timestamps
+
+- **Created:** 2026-07-03
+- **Modified:** 2026-07-03
+
+## APIs
+
+### Weedmaps Menu API
+
+Keep a retailer's Weedmaps menu in sync with their point-of-sale. Retrieve menus and menu items, and create, retrieve, update, delete, and upsert-by-external-ID menu items to publish real-time product availability and dynamic pricing across single or multiple (e.g. medical vs. recreational) menus.
+
+- **Human URL:** [https://developer.weedmaps.com/docs/wm-menu-api-getting-started](https://developer.weedmaps.com/docs/wm-menu-api-getting-started)
+- **Base URL:** `https://api-g.weedmaps.com/wm/2025-07/partners`
+
+#### Tags
+
+- Menu Sync
+- Menu Items
+- Point of Sale
+- Inventory
+
+#### Properties
+
+- [Documentation](https://developer.weedmaps.com/docs/wm-menus)
+- [API Reference](https://developer.weedmaps.com/reference/get_menus)
+
+### Weedmaps Brand Catalog API
+
+Sync or map the Weedmaps catalog of Brands and Brand Products to an internal catalog to improve menu-item search relevance and discoverability. Retrieve all brands, a single brand, the brand product catalog, an individual brand product, and brand product reviews.
+
+- **Human URL:** [https://developer.weedmaps.com/reference/get_brands](https://developer.weedmaps.com/reference/get_brands)
+- **Base URL:** `https://api-g.weedmaps.com/wm/2025-07/partners`
+
+#### Tags
+
+- Brands
+- Products
+- Reviews
+- Enrichment
+
+#### Properties
+
+- [Documentation](https://developer.weedmaps.com/docs/overview)
+- [API Reference](https://developer.weedmaps.com/reference/get_brands)
+
+### Weedmaps Taxonomy API
+
+Read-only reference taxonomy used to enrich menu items — retrieve cannabinoids, categories (flat and tree), strains, terpenes, and discovery tags. Linking menu items to these taxonomy entries increases the quality and discoverability of a retailer's Weedmaps menu.
+
+- **Human URL:** [https://developer.weedmaps.com/docs/core-concepts-and-structure](https://developer.weedmaps.com/docs/core-concepts-and-structure)
+- **Base URL:** `https://api-g.weedmaps.com/wm/2025-07/partners`
+
+#### Tags
+
+- Taxonomy
+- Categories
+- Cannabinoids
+- Strains
+- Terpenes
+
+#### Properties
+
+- [Documentation](https://developer.weedmaps.com/docs/core-concepts-and-structure)
+- [API Reference](https://developer.weedmaps.com/reference/get_menus)
+
+### Weedmaps Orders API
+
+Receive and manage online Weedmaps orders directly in a partner POS. Update order status, retrieve applicable discounts, retrieve order schedule time windows, and retrieve document URLs, removing manual re-entry between Weedmaps and the retailer's system.
+
+- **Human URL:** [https://developer.weedmaps.com/reference/update_order_status](https://developer.weedmaps.com/reference/update_order_status)
+- **Base URL:** `https://api-g.weedmaps.com/oos/2026-01`
+
+#### Tags
+
+- Orders
+- Discounts
+- Fulfillment
+- Documents
+
+#### Properties
+
+- [Documentation](https://developer.weedmaps.com/docs/overview)
+- [API Reference](https://developer.weedmaps.com/reference/update_order_status)
+
+## Common Properties
+
+- [Website](https://weedmaps.com)
+- [Business](https://weedmaps.com/business)
+- [Documentation](https://developer.weedmaps.com/docs)
+- [Authentication](https://developer.weedmaps.com/docs/oauth)
+- [Onboarding](https://developer.weedmaps.com/docs/onboarding-process)
+- [LinkedIn](https://www.linkedin.com/company/weedmaps)
+- [Plans](plans/weedmaps-plans-pricing.yml)
+- [Rate Limits](rate-limits/weedmaps-rate-limits.yml)
+- [Fin Ops](finops/weedmaps-finops.yml)
+
+## Rate Limits
+
+- **Global:** 2,500 requests/minute per integrator (enforced as 420 requests / 10 seconds across all endpoints)
+- **Token endpoint (`/auth/token`):** 1 request/minute — cache and reuse the token
+- **Overage:** HTTP 429 Too Many Requests; use exponential backoff
+
+## Pricing
+
+The partner API carries no separate per-call fee; the cost driver is the **Weedmaps for Business** listing subscription that the APIs keep in sync — a monthly, market-dependent charge sold via Weedmaps sales (reported retailer base ~$495/mo, delivery ~$395/mo, national brand programs substantially higher). See [plans/weedmaps-plans-pricing.yml](plans/weedmaps-plans-pricing.yml).
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
